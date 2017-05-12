@@ -1,10 +1,11 @@
 #include "Line.h"
 
 
-Line::Line(unsigned int id, vector<string> busStopList, vector<int> timesList){
+Line::Line(unsigned int id, unsigned int freq, vector<string> busStopList, vector<int> timesList){
 
   // INITIALISATION CODE GOES IN HERE
   this->id = id;
+  this->freq = freq;
   this->busStopList = busStopList;
   this->timesList = timesList;
 }
@@ -15,6 +16,10 @@ Line::Line(unsigned int id, vector<string> busStopList, vector<int> timesList){
 
 unsigned int Line::getId() const{
   return id;
+}
+
+unsigned int Line::getFreq() const{
+	return freq;
 }
 
 vector<string> Line::getBusStops() const{

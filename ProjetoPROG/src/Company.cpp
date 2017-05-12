@@ -13,12 +13,12 @@ Company::Company(Company &obj){
 	this->condutores = obj.getCondutores();
 }
 
-Company::Company(string nome, const char* fichCondutores, const char* fichLinhas){
+Company::Company(string nome, string fichCondutores, string fichLinhas){
 
 	this->nome = nome;
 	ifstream in_stream;
 
-	in_stream.open(fichLinhas, ifstream::in);
+	in_stream.open(fichLinhas.c_str(), ifstream::in);
 
 	int id, freq, time, linhaId = 1;
 	string buffer, str;
@@ -45,10 +45,10 @@ Company::Company(string nome, const char* fichCondutores, const char* fichLinhas
 			stopTimes.push_back(time);
 			in_stream >> buffer;
 		}
-		this->linhas.push_back(Line(linhaId, busStops, stopTimes));
+		this->linhas.push_back(Line(linhaId, freq, busStops, stopTimes));
 	}
 
-	in_stream.open((const char*)fichCondutores, ifstream::in);
+	in_stream.open(fichCondutores.c_str(), ifstream::in);
 	int turno, maxSemana, minDescanso;
 
 	while(in_stream >> id){
@@ -102,10 +102,21 @@ void Company::setLinhas(vector<Line> linhas){
 void Company::addCondutor(Driver condutor){
 	this->condutores.push_back(condutor);
 }
-void Company::findCondutor(int id){
+Driver Company::findCondutor(int id){
 	int i = 0;
 
-	while(this->condutores.at(i).id != id && this->condutores.size() != i){
+	while((int)this->condutores.at(i).getId() != id && (int)this->condutores.size()-1 != i){
 		i++;
 	}
+
+	return this->condutores.at(i);
+}
+void Company::removeCondutor(int id){
+	int i = 0;
+
+	while((int)this->condutores.at(i).getId() != id && (int)this->condutores.size()-1 != i){
+		i++;
+	}
+
+	this->condutores.erase(this->condutores.begin()+i);
 }

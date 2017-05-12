@@ -20,7 +20,7 @@ class Company{
  public:
   Company();
   Company(Company &obj);
-  Company(string nome, const char* fichCondutores, const char* fichLinhas);
+  Company(string nome, string fichCondutores, string fichLinhas);
   // metodos get
   string getNome() const;
   vector<Driver> getCondutores() const;
@@ -31,4 +31,6 @@ class Company{
   void setLinhas(vector<Line> linhas);
   // outros metodos
   void addCondutor(Driver condutor);
+  Driver findCondutor(int id);
+  void removeCondutor(int id);
 };
